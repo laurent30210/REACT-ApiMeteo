@@ -30,7 +30,7 @@ const Map = ({ userPosition }) => {
         />
         <Marker position={userPosition}>
           <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
+            Votre localisation
           </Popup>
         </Marker>
       </MapContainer>

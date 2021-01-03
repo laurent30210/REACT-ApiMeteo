@@ -18,14 +18,12 @@ import {
 const Header = ({
   value,
   setValue,
-  setInputValue,
   loadCityFromApi,
 }) => {
   const onSubmit = (event) => {
     event.preventDefault();
-    setInputValue(value);
+    loadCityFromApi(value);
     setValue('');
-    loadCityFromApi();
   };
   return (
     <Navbar bg="primary" variant="dark">
@@ -43,7 +41,6 @@ const Header = ({
           onChange={(event) => {
             const newValue = event.target.value;
             setValue(newValue);
-            setInputValue(value);
           }}
         />
         <Button variant="outline-light" onClick={onSubmit}>Recherche</Button>
@@ -60,8 +57,7 @@ Header.propTypes = {
   // boolén indiquant si l'on est connecté
   value: PropTypes.string.isRequired,
   setValue: PropTypes.func.isRequired,
-  inputValue: PropTypes.string.isRequired,
-  setInputValue: PropTypes.func.isRequired,
+  loadCityFromApi: PropTypes.func.isRequired,
 };
 // == Export
 export default Header;

@@ -23,14 +23,13 @@ const App = () => {
         setUserPosition([latitude, longitude]);
       }
     });
-    console.log('lancement du useEffect');
+    console.log('lancement du useEffect au démarrage');
   }, []);
 
   const loadCityFromApi = (city) => {
     const KEY = 'ffe5f1ec3fc89d7f62bb1b80bb651349';
     axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${KEY}&lang=fr&units=metric`)
       .then((response) => {
-        console.log(response.data);
         const result = {
           id: response.data.id,
           coord: {
@@ -64,7 +63,11 @@ const App = () => {
             ))}
           </section>
           <section className="main__right">
-            <Map userPosition={userPosition} />
+            {console.log(results)}
+            <Map
+              userPosition={userPosition}
+              results={results}
+            />
           </section>
         </section>
       </main>

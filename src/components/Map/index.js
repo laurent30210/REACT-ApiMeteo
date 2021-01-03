@@ -14,8 +14,8 @@ import {
 import PropTypes from 'prop-types';
 
 // == Composant
-const Map = ({ userPosition }) => {
-  console.log('en réception de app', userPosition);
+const Map = ({ userPosition, results }) => {
+  console.log('MAP : en réception de app ', results);
   return (
     <div id="mapid">
       <MapContainer
@@ -33,6 +33,13 @@ const Map = ({ userPosition }) => {
             Votre localisation
           </Popup>
         </Marker>
+        {results.map((coordGPS) => (
+          <Marker position={[coordGPS.coord.latitude, coordGPS.coord.lon]}>
+            <Popup>
+              {coordGPS.name}
+            </Popup>
+          </Marker>
+        ))}
       </MapContainer>
     </div>
   );
@@ -40,7 +47,7 @@ const Map = ({ userPosition }) => {
 // PropTypes
 Map.proptypes = {
   userPosition: PropTypes.object.isRequired,
-  lattitude: PropTypes.number.isRequired,
+  latitude: PropTypes.number.isRequired,
   longitude: PropTypes.number.isRequired,
 };
 // == Export

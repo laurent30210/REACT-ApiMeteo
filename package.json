@@ -52,6 +52,7 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
-    "react-leaflet": "^3.0.5"
+    "react-leaflet": "^3.0.5",
+    "surge": "^0.21.7"
   }
 }

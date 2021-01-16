@@ -14,7 +14,7 @@ import cities2 from 'src/data/cities2';
 // == Composant
 const App = () => {
   const [value, setValue] = useState('');
-  const [userPosition, setUserPosition] = useState(null);
+  const [userPosition, setUserPosition] = useState([44, 5]);
   const [results, setResults] = useState([]);
   const [resultsCenters, setResultsCenters] = useState(cities2);
 
@@ -103,7 +103,7 @@ const App = () => {
             ))}
           </section>
           <section className="main__right">
-            {userPosition && <Map userPosition={userPosition} results={results} resultsCenters={resultsCenters} />}
+            <Map userPosition={userPosition} results={results} resultsCenters={resultsCenters} />
           </section>
         </section>
       </main>

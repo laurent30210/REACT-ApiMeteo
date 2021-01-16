@@ -48,11 +48,13 @@
   "dependencies": {
     "axios": "^0.21.1",
     "leaflet": "^1.7.1",
+    "leaflet.markercluster": "^1.4.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
     "react-leaflet": "^3.0.5",
+    "react-leaflet-markercluster": "^3.0.0-rc1",
     "surge": "^0.21.7"
   }
 }

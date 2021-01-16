@@ -2,6 +2,7 @@
 
 // == Import npm
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // == Import
 import './map.scss';
@@ -11,28 +12,46 @@ import {
   Marker,
   Popup,
 } from 'react-leaflet';
-import PropTypes from 'prop-types';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
+import 'react-leaflet-markercluster/dist/styles.min.css';
 
 // == Composant
-const Map = ({ userPosition, results }) => {
-  console.log('MAP : en réception de app ', results);
+const Map = ({ userPosition, results, resultsCenters }) => {
+  console.log('MAP : en réception de app ', userPosition);
   return (
     <div id="mapid">
       <MapContainer
         className="leafletContainer"
-        center={[45.505, 1.09]}
+        center={userPosition}
         zoom={5}
-        scrollWheelZoom={false}
+        scrollWheelZoom
+        animate
       >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
         />
         <Marker position={userPosition}>
           <Popup>
             Votre localisation
           </Popup>
         </Marker>
+        <MarkerClusterGroup
+          spiderfyDistanceMultiplier={1}
+          showCoverageOnHover={false}
+        >
+          {resultsCenters && resultsCenters.map((coordGPSCenter) => (
+            <Marker position={
+              [coordGPSCenter.coordinates[1],
+                coordGPSCenter.coordinates[0]]
+            }
+            >
+              <Popup>
+                {coordGPSCenter.institution_name}
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
         {results.map((coordGPS) => (
           <Marker position={[coordGPS.coord.latitude, coordGPS.coord.lon]}>
             <Popup>
@@ -45,10 +64,8 @@ const Map = ({ userPosition, results }) => {
   );
 };
 // PropTypes
-Map.proptypes = {
+Map.propTypes = {
   userPosition: PropTypes.object.isRequired,
-  latitude: PropTypes.number.isRequired,
-  longitude: PropTypes.number.isRequired,
 };
 // == Export
 export default Map;

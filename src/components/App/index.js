@@ -9,21 +9,61 @@ import Map from 'src/components/Map';
 import City from 'src/components/City';
 // == Import
 import './app.scss';
+import cities2 from 'src/data/cities2';
 
 // == Composant
 const App = () => {
   const [value, setValue] = useState('');
-  const [userPosition, setUserPosition] = useState([45, 2]);
+  const [userPosition, setUserPosition] = useState(null);
   const [results, setResults] = useState([]);
+  const [resultsCenters, setResultsCenters] = useState(cities2);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       if ('geolocation' in navigator) {
         const { latitude, longitude } = position.coords;
+        console.log(position);
         setUserPosition([latitude, longitude]);
       }
     });
     console.log('lancement du useEffect au démarrage');
+
+    /**
+     * SEND ADRESS'S CITIES AT GOUV'S API FOR GET COORDGPS AND STORE DATAS ON THE STATE
+     * */
+
+    // const result = [];
+    // data.forEach((element, index) => {
+
+    //   setTimeout(() => {
+    //     axios.get(`https://api-adresse.data.gouv.fr/search/?q=${element.Adresse}&postcode=${element.CP}&city=${element.Ville}`)
+    //       .then((response) => {
+    //         // console.log(response.data.features[0].properties.name,
+    //         //   response.data.features[0].properties.citycode,
+    //         //   response.data.features[0].properties.city,
+    //         //   response.data.features[0].geometry.coordinates);
+    //         result.push({
+    //           id: index,
+    //           Institution_name: element.Raison_sociale,
+    //           Adress_complement: element.Adresse_complement,
+    //           Adress: response.data.features[0].properties.name,
+    //           PO_Box_Localilty: element.Lieudit_BP,
+    //           Postcode: response.data.features[0].properties.citycode,
+    //           City: response.data.features[0].properties.city,
+    //           Phone: element.Tel,
+    //           Phone_fax: element.Fax,
+    //           Opening_date: element.Date_ouvert,
+    //           Category: element.Lib_categorie,
+    //           Dialysis_C: element.Dialyse_C,
+    //           Dialysis_UM: element.Dialyse_UM,
+    //           Dialysis_ADA: element.Dialyse_ADA,
+    //           Dialysis_ADS: element.Dialyse_ADS,
+    //           coordinates: response.data.features[0].geometry.coordinates,
+    //         });
+    //         console.log(result, response.data.features[0].properties.city);
+    //       });
+    //   }, 1000 * index);
+    // });
   }, []);
 
   const loadCityFromApi = (city) => {
@@ -63,11 +103,7 @@ const App = () => {
             ))}
           </section>
           <section className="main__right">
-            {console.log(results)}
-            <Map
-              userPosition={userPosition}
-              results={results}
-            />
+            {userPosition && <Map userPosition={userPosition} results={results} resultsCenters={resultsCenters} />}
           </section>
         </section>
       </main>
